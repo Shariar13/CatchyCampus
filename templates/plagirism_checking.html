@@ -1,0 +1,66 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    textarea {
+        width: 100%;
+        background-color: transparent;
+        color: white;
+        border: none;
+        border: 1px solid white;
+        border-radius: 19px;
+    }
+
+    .design {
+        background-color: #142023;
+        padding: 19px;
+        border-radius: 19px;
+    }
+</style>
+<div class="page-container">
+    <br>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col design">
+                    <h5 style="color: white;"><b>Write The Text</b></h5>
+                    <hr>
+                    <form action="{% url 'grammar_check_view' %}" method="post">
+                        {% csrf_token %}
+                        <textarea name="text" rows="4" cols="50"></textarea>
+                        <br>
+                        <br>
+                        <input
+                            style="border: none; border: 1px solid white; color: white; padding: 7px;border-radius: 19px; background-color: transparent;"
+                            type="submit" value="Check Grammar">
+                    </form>
+                    {% if message %}
+                    <h2>{{ message }}</h2>
+                    {% endif %}
+                    {% if corrections %}
+                    <h2>Grammar Corrections:</h2>
+                    <ul>
+                        {% for correction in corrections %}
+                        <li>Incorrect: <span class="">{{ correction.incorrect }}</span>. Correct: <span
+                                class="correct">{{ correction.correct }}</span>.</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <br>
+                    <br>
+                    {% if corrected_passage %}
+                    <h2>Corrected Passage:</h2>
+                    <p>{{ corrected_passage }}</p>
+                    {% endif %}
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

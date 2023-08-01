@@ -1,1 +1,10 @@
 ./
+home/
+media/
+static/
+.gitignore
+db.sqlite3
+requirements.txt
+manage.py
+CampusConnect/
+authentication/
